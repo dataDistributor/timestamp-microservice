@@ -4,20 +4,20 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Enable CORS for cross-origin requests
+// Enable CORS
 app.use(cors());
 
-// Serve static files from the "public" directory
+// Serve static files (index.html)
 app.use(express.static("public"));
 
-// Root route to serve the landing page
+// Root route to serve the main page
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
 // API route for the timestamp microservice
 app.get("/api/:date?", (req, res) => {
-  let dateParam = req.params.date;
+  const dateParam = req.params.date;
 
   // If no date is provided, use the current date
   if (!dateParam) {
@@ -25,20 +25,13 @@ app.get("/api/:date?", (req, res) => {
     return res.json({ unix: now.getTime(), utc: now.toUTCString() });
   }
 
-  // Check if the input is a valid UNIX timestamp
-  if (!isNaN(dateParam)) {
-    dateParam = parseInt(dateParam);
-  }
+  // Check if the dateParam is a valid timestamp or date string
+  const date = isNaN(dateParam) ? new Date(dateParam) : new Date(parseInt(dateParam));
 
-  // Create a date object
-  const date = new Date(dateParam);
-
-  // Validate the date
   if (date.toString() === "Invalid Date") {
     return res.json({ error: "Invalid Date" });
   }
 
-  // Return the JSON response
   res.json({
     unix: date.getTime(),
     utc: date.toUTCString(),
@@ -47,5 +40,5 @@ app.get("/api/:date?", (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

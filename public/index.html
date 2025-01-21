@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timestamp Microservice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin: 20px 0;
+    }
+    a {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>Timestamp Microservice</h1>
+  <p>Welcome to the Timestamp Microservice. Use the following endpoints:</p>
+  <ul>
+    <li><a href="/api">/api</a> - Returns the current timestamp.</li>
+    <li><a href="/api/2023-01-01">/api/2023-01-01</a> - Returns the timestamp for a valid date.</li>
+    <li><a href="/api/1450137600">/api/1450137600</a> - Returns the timestamp for a UNIX time.</li>
+  </ul>
+  <p>If you provide an invalid date, you'll receive an error message:</p>
+  <pre>{ "error": "Invalid Date" }</pre>
+</body>
+</html>
